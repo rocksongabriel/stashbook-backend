@@ -2,6 +2,14 @@ import { PrismaClient, Prisma } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+const selectFields = {
+  select: {
+    id: true,
+    text: true,
+    description: true,
+  },
+};
+
 export const create = async (plans: Prisma.PlanCreateInput[]) => {
   return await prisma.standup.create({
     data: {
@@ -13,13 +21,6 @@ export const create = async (plans: Prisma.PlanCreateInput[]) => {
 };
 
 export const getAll = async () => {
-  const selectFields = {
-    select: {
-      id: true,
-      text: true,
-    },
-  };
-
   return await prisma.standup.findMany({
     select: {
       plans: selectFields,
@@ -30,13 +31,6 @@ export const getAll = async () => {
 };
 
 export const getStandupById = async (id: string) => {
-  const select = {
-    select: {
-      id: true,
-      text: true,
-    },
-  };
-
   return await prisma.standup.findUniqueOrThrow({
     where: {
       id: id,
@@ -44,9 +38,9 @@ export const getStandupById = async (id: string) => {
     select: {
       id: true,
       createdAt: true,
-      plans: select,
-      accomplishments: select,
-      blockers: select,
+      plans: selectFields,
+      accomplishments: selectFields,
+      blockers: selectFields,
     },
   });
 };
