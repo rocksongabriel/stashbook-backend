@@ -20,7 +20,7 @@ model Standup {
 
 model Accomplishment {
   id          String   @id @default(uuid())
-  text        String
+  title       String
   description String?
   Standup     Standup? @relation(fields: [standupId], references: [id], onDelete: Cascade)
   standupId   String?
@@ -28,7 +28,7 @@ model Accomplishment {
 
 model Blocker {
   id          String  @id @default(uuid())
-  text        String
+  title       String
   description String?
   Standup     Standup @relation(fields: [standupId], references: [id], onDelete: Cascade)
   standupId   String
@@ -36,7 +36,7 @@ model Blocker {
 
 model Plan {
   id          String  @id @default(uuid())
-  text        String
+  title       String
   description String?
   Standup     Standup @relation(fields: [standupId], references: [id], onDelete: Cascade)
   standupId   String

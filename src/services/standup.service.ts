@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 const selectFields = {
   select: {
     id: true,
-    text: true,
+    title: true,
     description: true,
   },
 };
