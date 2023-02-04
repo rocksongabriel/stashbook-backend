@@ -43,3 +43,11 @@ export const getStandupById = async (id: string) => {
     },
   });
 };
+
+export const removeStandupById = async (id: string) => {
+  return await prisma.standup.delete({
+    where: {
+      id: id,
+    },
+  });
+};
