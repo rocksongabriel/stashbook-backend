@@ -19,10 +19,10 @@ model Standup {
 }
 
 model Accomplishment {
-  id        String  @id @default(uuid())
+  id        String   @id @default(uuid())
   text      String
-  Standup   Standup @relation(fields: [standupId], references: [id])
-  standupId String
+  Standup   Standup? @relation(fields: [standupId], references: [id])
+  standupId String?
 }
 
 model Blocker {
