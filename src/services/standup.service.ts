@@ -21,3 +21,25 @@ export const getAll = async () => {
     },
   });
 };
+
+export const getStandupById = async (id: string) => {
+  const select = {
+    select: {
+      id: true,
+      text: true,
+    },
+  };
+
+  return await prisma.standup.findUniqueOrThrow({
+    where: {
+      id: id,
+    },
+    select: {
+      id: true,
+      createdAt: true,
+      plans: select,
+      accomplishments: select,
+      blockers: select,
+    },
+  });
+};
