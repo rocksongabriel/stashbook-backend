@@ -19,13 +19,36 @@ export const createStandup = async (req: Request, res: Response) => {
 
   try {
     const response = await create(plans);
+
     return res.status(201).json({
       data: response,
       message: "Standup created successfully",
       status: 201,
     });
   } catch (error) {
-    console.log(error);
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      return res.status(500).json({
+        error: {
+          message: error.message,
+          meta: error.meta,
+        },
+        status: 500,
+      });
+    } else if (error instanceof Prisma.PrismaClientUnknownRequestError) {
+      return res.status(500).json({
+        error: {
+          message: error.message,
+        },
+        status: 500,
+      });
+    } else if (error instanceof Prisma.PrismaClientValidationError) {
+      return res.status(500).json({
+        error: {
+          message: error.message,
+        },
+        status: 500,
+      });
+    }
   }
 };
 
