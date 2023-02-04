@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
-import { create, getAll } from "../services/standup.service";
+import { create, getAll, getStandupById } from "../services/standup.service";
 
 // ? The user is only allowed to create a standup object with the
 // ? plans they have for the day, the accomplishments and the
@@ -60,4 +60,30 @@ export const getAllStandups = async (req: Request, res: Response) => {
     message: "All standups fetched successfully",
     status: 200,
   });
+};
+
+export const getStandup = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
+
+  try {
+    const response = await getStandupById(id);
+
+    return res.status(200).json({
+      data: response,
+      message: "Standup item fetched successfully",
+      status: 200,
+    });
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code == "P2025"
+    ) {
+      return res.status(404).json({
+        error: {
+          message: error.message,
+        },
+        status: 404,
+      });
+    }
+  }
 };

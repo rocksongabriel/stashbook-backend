@@ -16,7 +16,7 @@ app.use(
 
 app.use(morgan("dev"));
 
-app.use("/standup", StandupRoutes);
+app.use("/standups", StandupRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send({ data: "Welcome to the stashbook" });
