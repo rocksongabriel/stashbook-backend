@@ -12,7 +12,7 @@ datasource db {
 
 model Standup {
   id              String           @id @default(uuid())
-  created         DateTime         @default(now())
+  createdAt       DateTime         @default(now())
   accomplishments Accomplishment[]
   blockers        Blocker[]
   plans           Plan[]
@@ -27,12 +27,14 @@ model Accomplishment {
 
 model Blocker {
   id        String  @id @default(uuid())
+  text      String
   Standup   Standup @relation(fields: [standupId], references: [id])
   standupId String
 }
 
 model Plan {
   id        String  @id @default(uuid())
+  text      String
   Standup   Standup @relation(fields: [standupId], references: [id])
   standupId String
 }
