@@ -7,3 +7,7 @@ export const create = async () => {
     data: {},
   });
 };
+
+export const getAll = async () => {
+  return await prisma.standup.findMany();
+};
