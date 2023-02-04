@@ -22,3 +22,6 @@ app.get("/", (req: Request, res: Response) => {
 app.listen(port, host, () => {
   console.log(`Stashbook application running on host: ${host}:${port}`);
 });
+
+// TODO: handle cases where the database is not running
+// todo: handle cases where the dtaabase tables don't exist

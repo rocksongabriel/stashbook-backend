@@ -13,5 +13,11 @@ export const create = async (plans: Prisma.PlanCreateInput[]) => {
 };
 
 export const getAll = async () => {
-  return await prisma.standup.findMany();
+  return await prisma.standup.findMany({
+    include: {
+      plans: true,
+      accomplishments: true,
+      blockers: true,
+    },
+  });
 };
