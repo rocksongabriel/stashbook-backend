@@ -1,4 +1,5 @@
 import express, { Express, Response, Request } from "express";
+import morgan from "morgan";
 import bodyParser from "body-parser";
 import StandupRoutes from "./routes/standup.route";
 
@@ -12,6 +13,8 @@ app.use(
     extended: true,
   })
 );
+
+app.use(morgan("dev"));
 
 app.use("/standup", StandupRoutes);
 
