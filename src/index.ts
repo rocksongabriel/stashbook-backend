@@ -1,5 +1,6 @@
 import express, { Express, Response, Request } from "express";
 import bodyParser from "body-parser";
+import StandupRoutes from "./routes/standup.route";
 
 const app: Express = express();
 const port: number = Number(process.env.PORT) || 3000;
@@ -11,6 +12,8 @@ app.use(
     extended: true,
   })
 );
+
+app.use("/standup", StandupRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send({ data: "Welcome to the stashbook" });
