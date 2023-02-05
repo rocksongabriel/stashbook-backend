@@ -10,11 +10,11 @@ const selectFields = {
   },
 };
 
-export const create = async (plans: Prisma.PlanCreateInput[]) => {
+export const create = async (plansToday: Prisma.PlanTodayCreateInput[]) => {
   return await prisma.standup.create({
     data: {
-      plans: {
-        create: plans,
+      plansToday: {
+        create: plansToday,
       },
     },
   });
@@ -25,7 +25,8 @@ export const getAll = async () => {
     select: {
       id: true,
       createdAt: true,
-      plans: selectFields,
+      plansToday: selectFields,
+      plansTomorrow: selectFields,
       accomplishments: selectFields,
       blockers: selectFields,
     },
@@ -40,7 +41,8 @@ export const getStandupById = async (id: string) => {
     select: {
       id: true,
       createdAt: true,
-      plans: selectFields,
+      plansToday: selectFields,
+      plansTomorrow: selectFields,
       accomplishments: selectFields,
       blockers: selectFields,
     },

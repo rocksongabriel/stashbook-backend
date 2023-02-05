@@ -11,19 +11,19 @@ import {
 // ? plans they have for the day, the accomplishments and the
 // ? blockers are sent through updates
 export const createStandup = async (req: Request, res: Response) => {
-  const plans: Prisma.PlanCreateInput[] = req.body.plans;
+  const plansToday: Prisma.PlanTodayCreateInput[] = req.body.plansToday;
 
-  if (!plans) {
+  if (!plansToday) {
     return res.status(400).json({
       error: {
-        message: "plans field is required",
+        message: "plansToday field is required",
       },
       status: 400,
     });
   }
 
   try {
-    const response = await create(plans);
+    const response = await create(plansToday);
 
     return res.status(201).json({
       data: response,
