@@ -14,7 +14,7 @@ export const getAll = async () => {
   return await prisma.accomplishment.findMany();
 };
 
-export const getAccomplishmentById = async (id: string) => {
+export const retrieve = async (id: string) => {
   return await prisma.accomplishment.findUniqueOrThrow({
     where: {
       id: id,
