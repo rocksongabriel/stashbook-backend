@@ -10,9 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// TODO: a user can add multiple standup items for different projects they are on
+// i.e: you should add a field that will accommodate for the different project's they 
+// are on
 model Standup {
   id              String           @id @default(uuid())
-  createdAt       DateTime         @default(now())
+  createdAt       DateTime         @default(now()) @db.Date
   accomplishments Accomplishment[]
   blockers        Blocker[]
   plansToday      PlanToday[]
