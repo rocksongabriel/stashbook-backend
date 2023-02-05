@@ -23,6 +23,8 @@ export const create = async (plans: Prisma.PlanCreateInput[]) => {
 export const getAll = async () => {
   return await prisma.standup.findMany({
     select: {
+      id: true,
+      createdAt: true,
       plans: selectFields,
       accomplishments: selectFields,
       blockers: selectFields,
