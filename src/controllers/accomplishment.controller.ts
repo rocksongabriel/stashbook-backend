@@ -1,6 +1,6 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import { Request, Response } from "express";
-import { create } from "../services/accomplishment.service";
+import { create, getAll } from "../services/accomplishment.service";
 
 export const createAccomplishment = async (req: Request, res: Response) => {
   const accomplishment: Prisma.AccomplishmentCreateInput = req.body;
@@ -33,4 +33,14 @@ export const createAccomplishment = async (req: Request, res: Response) => {
     }
     res.status(500).json({ error: error });
   }
+};
+
+export const getAccomplishments = async (req: Request, res: Response) => {
+  const response = await getAll();
+
+  return res.status(200).json({
+    data: response,
+    message: "Accomplishments fetched successfully",
+    status: 200,
+  });
 };

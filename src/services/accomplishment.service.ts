@@ -9,3 +9,7 @@ export const create = async (
     data: accomplishment,
   });
 };
+
+export const getAll = async () => {
+  return await prisma.accomplishment.findMany();
+};
