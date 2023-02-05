@@ -15,7 +15,8 @@ model Standup {
   createdAt       DateTime         @default(now())
   accomplishments Accomplishment[]
   blockers        Blocker[]
-  plans           Plan[]
+  plansToday      PlanToday[]
+  plansTomorrow   PlanTomorrow[]
 }
 
 model Accomplishment {
@@ -34,10 +35,18 @@ model Blocker {
   standupId   String
 }
 
-model Plan {
-  id          String  @id @default(uuid())
+model PlanToday {
+  id          String   @id @default(uuid())
   title       String
   description String?
-  Standup     Standup @relation(fields: [standupId], references: [id], onDelete: Cascade)
-  standupId   String
+  Standup     Standup? @relation(fields: [standupId], references: [id], onDelete: Cascade)
+  standupId   String?
+}
+
+model PlanTomorrow {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  Standup     Standup? @relation(fields: [standupId], references: [id], onDelete: Cascade)
+  standupId   String?
 }
