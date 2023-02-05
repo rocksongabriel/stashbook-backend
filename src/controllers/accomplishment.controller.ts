@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import {
   create,
   getAll,
+  remove,
   retrieve,
   update,
 } from "../services/accomplishment.service";
@@ -89,6 +90,34 @@ export const updateAccomplishment = async (req: Request, res: Response) => {
       data: response,
       message: "Accomplishment updated successfully",
       status: 200,
+    });
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code == "P2025"
+    ) {
+      return res.status(404).json({
+        error: {
+          message: error.message,
+        },
+        status: 404,
+      });
+    }
+  }
+};
+
+export const deleteAccomplishment = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
+
+  try {
+    await retrieve(id);
+
+    const response = await remove(id);
+
+    return res.status(204).json({
+      data: response,
+      message: "Accomplishment deleted successfully",
+      status: 204,
     });
   } catch (error) {
     if (

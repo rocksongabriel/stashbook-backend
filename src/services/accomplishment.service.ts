@@ -33,3 +33,11 @@ export const update = async (
     data: updatedData,
   });
 };
+
+export const remove = async (id: string) => {
+  return await prisma.accomplishment.delete({
+    where: {
+      id: id,
+    },
+  });
+};
