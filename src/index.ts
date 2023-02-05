@@ -2,6 +2,7 @@ import express, { Express, Response, Request } from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import StandupRoutes from "./routes/standup.route";
+import AccomplishmentRoutes from "./routes/accomplishment.route";
 
 const app: Express = express();
 const port: number = Number(process.env.PORT) || 3000;
@@ -17,6 +18,7 @@ app.use(
 app.use(morgan("dev"));
 
 app.use("/standups", StandupRoutes);
+app.use("/accomplishments", AccomplishmentRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send({ data: "Welcome to the stashbook" });
