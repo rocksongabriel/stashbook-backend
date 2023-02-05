@@ -4,6 +4,7 @@ import {
   getAccomplishments,
   getAccomplishment,
   updateAccomplishment,
+  deleteAccomplishment,
 } from "../controllers/accomplishment.controller";
 
 const router = express.Router();
@@ -15,5 +16,7 @@ router.get("/", getAccomplishments);
 router.get("/:id", getAccomplishment);
 
 router.put("/:id", updateAccomplishment);
+
+router.delete("/:id", deleteAccomplishment);
 
 export default router;
