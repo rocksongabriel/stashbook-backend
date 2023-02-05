@@ -3,7 +3,7 @@ import { Request, Response } from "express";
 import {
   create,
   getAll,
-  getAccomplishmentById,
+  retrieve,
   update,
 } from "../services/accomplishment.service";
 
@@ -54,7 +54,7 @@ export const getAccomplishment = async (req: Request, res: Response) => {
   const id: string = req.params.id;
 
   try {
-    const response = await getAccomplishmentById(id);
+    const response = await retrieve(id);
 
     return res.status(200).json({
       data: response,
@@ -81,7 +81,7 @@ export const updateAccomplishment = async (req: Request, res: Response) => {
   const updatedData: Prisma.AccomplishmentUpdateInput = req.body;
 
   try {
-    await getAccomplishmentById(id);
+    await retrieve(id);
 
     const response = await update(id, updatedData);
 
