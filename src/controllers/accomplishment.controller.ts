@@ -1,6 +1,10 @@
 import { PrismaClient, Prisma } from "@prisma/client";
 import { Request, Response } from "express";
-import { create, getAll } from "../services/accomplishment.service";
+import {
+  create,
+  getAll,
+  getAccomplishmentById,
+} from "../services/accomplishment.service";
 
 export const createAccomplishment = async (req: Request, res: Response) => {
   const accomplishment: Prisma.AccomplishmentCreateInput = req.body;
@@ -43,4 +47,30 @@ export const getAccomplishments = async (req: Request, res: Response) => {
     message: "Accomplishments fetched successfully",
     status: 200,
   });
+};
+
+export const getAccomplishment = async (req: Request, res: Response) => {
+  const id: string = req.params.id;
+
+  try {
+    const response = await getAccomplishmentById(id);
+
+    return res.status(200).json({
+      data: response,
+      message: "Accomplishment fetched successfully",
+      status: 200,
+    });
+  } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code == "P2025"
+    ) {
+      return res.status(404).json({
+        error: {
+          message: error.message,
+        },
+        status: 404,
+      });
+    }
+  }
 };
