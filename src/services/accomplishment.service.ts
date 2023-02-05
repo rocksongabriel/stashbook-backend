@@ -21,3 +21,15 @@ export const getAccomplishmentById = async (id: string) => {
     },
   });
 };
+
+export const update = async (
+  id: string,
+  updatedData: Prisma.AccomplishmentUpdateInput
+) => {
+  return await prisma.accomplishment.update({
+    where: {
+      id: id,
+    },
+    data: updatedData,
+  });
+};
