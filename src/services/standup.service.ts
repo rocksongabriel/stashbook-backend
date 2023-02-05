@@ -20,7 +20,7 @@ export const create = async (plansToday: Prisma.PlanTodayCreateInput[]) => {
   });
 };
 
-export const getAll = async () => {
+export const all = async () => {
   return await prisma.standup.findMany({
     select: {
       id: true,
@@ -33,7 +33,7 @@ export const getAll = async () => {
   });
 };
 
-export const getStandupById = async (id: string) => {
+export const retrieve = async (id: string) => {
   return await prisma.standup.findUniqueOrThrow({
     where: {
       id: id,
@@ -49,7 +49,7 @@ export const getStandupById = async (id: string) => {
   });
 };
 
-export const removeStandupById = async (id: string) => {
+export const remove = async (id: string) => {
   return await prisma.standup.delete({
     where: {
       id: id,

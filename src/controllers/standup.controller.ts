@@ -1,11 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { Request, Response } from "express";
-import {
-  create,
-  getAll,
-  getStandupById,
-  removeStandupById,
-} from "../services/standup.service";
+import { create, all, retrieve, remove } from "../services/standup.service";
 
 // ? The user is only allowed to create a standup object with the
 // ? plans they have for the day, the accomplishments and the
@@ -58,7 +53,7 @@ export const createStandup = async (req: Request, res: Response) => {
 };
 
 export const getAllStandups = async (req: Request, res: Response) => {
-  const response = await getAll();
+  const response = await all();
 
   res.status(200).json({
     data: response,
@@ -71,7 +66,7 @@ export const getStandup = async (req: Request, res: Response) => {
   const id: string = req.params.id;
 
   try {
-    const response = await getStandupById(id);
+    const response = await retrieve(id);
 
     return res.status(200).json({
       data: response,
@@ -97,9 +92,9 @@ export const deleteStandup = async (req: Request, res: Response) => {
   const id: string = req.params.id;
 
   try {
-    await getStandupById(id);
+    await retrieve(id);
 
-    const response = await removeStandupById(id);
+    const response = await remove(id);
 
     return res.status(204).json({
       data: response,
