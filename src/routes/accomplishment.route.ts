@@ -1,8 +1,13 @@
 import express from "express";
-import { createAccomplishment } from "../controllers/accomplishment.controller";
+import {
+  createAccomplishment,
+  getAccomplishments,
+} from "../controllers/accomplishment.controller";
 
 const router = express.Router();
 
 router.post("/", createAccomplishment);
+
+router.get("/", getAccomplishments);
 
 export default router;
