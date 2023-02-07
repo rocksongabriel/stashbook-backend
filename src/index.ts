@@ -1,8 +1,10 @@
-import express, { Express, Response, Request } from "express";
+import express, { Express, Response, Request, NextFunction } from "express";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import StandupRoutes from "./routes/standup.route";
 import AccomplishmentRoutes from "./routes/accomplishment.route";
+import BlockerRoutes from "./routes/blocker.route";
+import handleError from "./middlewares/error-handler.middleware";
 
 const app: Express = express();
 const port: number = Number(process.env.PORT) || 3000;
@@ -19,9 +21,16 @@ app.use(morgan("dev"));
 
 app.use("/standups", StandupRoutes);
 app.use("/accomplishments", AccomplishmentRoutes);
+app.use("/blockers", BlockerRoutes);
 
 app.get("/", (req: Request, res: Response) => {
   res.send({ data: "Welcome to the stashbook" });
+});
+
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+  handleError(err, req, res, next);
+
+  next(err);
 });
 
 app.listen(port, host, () => {
