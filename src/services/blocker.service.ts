@@ -7,3 +7,7 @@ export const create = async (blocker: Prisma.BlockerCreateInput) => {
     data: blocker,
   });
 };
+
+export const all = async () => {
+  return await prisma.blocker.findMany();
+};
