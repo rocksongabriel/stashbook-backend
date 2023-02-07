@@ -19,3 +19,15 @@ export const retrieve = async (id: string) => {
     },
   });
 };
+
+export const update = async (
+  id: string,
+  newData: Prisma.BlockerUpdateInput
+) => {
+  return await prisma.blocker.update({
+    where: {
+      id: id,
+    },
+    data: newData,
+  });
+};
