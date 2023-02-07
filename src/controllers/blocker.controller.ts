@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { ReasonPhrases, StatusCodes } from "http-status-codes";
 import { NextFunction, Request, Response } from "express";
-import { create, all, retrieve } from "../services/blocker.service";
+import { create, all, retrieve, update } from "../services/blocker.service";
 
 export const createBlocker = async (
   req: Request,
@@ -50,6 +50,29 @@ export const getBlocker = async (
 
   try {
     const response = await retrieve(blockerId);
+
+    return res.status(StatusCodes.OK).json({
+      data: response,
+      message: ReasonPhrases.OK,
+      status: StatusCodes.OK,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateBlocker = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const blockerId: string = req.params.id;
+  const newData: Prisma.BlockerUpdateInput = req.body;
+
+  try {
+    await retrieve(blockerId);
+
+    const response = await update(blockerId, newData);
 
     return res.status(StatusCodes.OK).json({
       data: response,
