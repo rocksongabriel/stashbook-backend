@@ -12,7 +12,15 @@ function handleError(
 ) {
   let customError = err;
 
-  if (err instanceof Prisma.PrismaClientKnownRequestError) {
+  if (
+    err instanceof Prisma.PrismaClientKnownRequestError &&
+    err.code == "P2025"
+  ) {
+    return res.status(StatusCodes.NOT_FOUND).json({
+      message: err.message,
+      status: StatusCodes.NOT_FOUND,
+    });
+  } else if (err instanceof Prisma.PrismaClientKnownRequestError) {
     return res.status(BAD_REQUEST).json({
       message: err.message,
       additionalInfo: err.meta,
