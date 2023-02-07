@@ -31,3 +31,11 @@ export const update = async (
     data: newData,
   });
 };
+
+export const remove = async (id: string) => {
+  return await prisma.blocker.delete({
+    where: {
+      id: id,
+    },
+  });
+};
